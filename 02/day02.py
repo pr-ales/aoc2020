@@ -9,8 +9,8 @@ Created on Wed Dec  2 08:28:50 2020
 
 data = []
 
-def row2data(r):
-    parts = r.split(' ')
+def line2data(l):
+    parts = l.strip().split(' ')
     c_min = int(parts[0].split('-')[0])
     c_max = int(parts[0].split('-')[1])
     letter = parts[1][0]
@@ -18,7 +18,7 @@ def row2data(r):
     return (c_min, c_max, letter, pwd)
 
 with open('input.txt', mode='r') as f:
-    data = [row2data(r.strip()) for r in f.readlines() if len(r.strip()) > 0]
+    data = [line2data(l) for l in f.readlines()]
 
 # part 1
     
