@@ -18,7 +18,7 @@ with open('input.txt', mode='r') as f:
         matches = re.findall('([0-9]+) ([a-z]* [a-z]*) bag', parts[1])
         ib = {m[1]: int(m[0]) for m in matches}      
         
-        data[k] = (ib)
+        data[k] = ib
 
 # part 1
         
