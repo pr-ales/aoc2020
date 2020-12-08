@@ -11,6 +11,7 @@ data = []
 with open('input.txt', mode='r+') as f:
     data = [(l.strip().split(' ')[0], int(l.strip().split(' ')[1])) for l in f.readlines()]
 
+# part 1
 
 def program(data):    
     executed = set()
@@ -36,6 +37,8 @@ def program(data):
     
 print(program(data))
 
+# part 2
+
 switched = {'nop': 'jmp', 'jmp': 'nop'}
 
 for i in range(len(data)):
@@ -46,6 +49,7 @@ for i in range(len(data)):
         result = program(data)
         if result[1]:
             print(result)
+            break
         
     data[i] = instruction
         
