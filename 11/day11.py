@@ -7,6 +7,9 @@ Created on Fri Dec 11 10:27:56 2020
 """
 
 import numpy as np
+from time import time
+
+start = time()
 
 data = []
 
@@ -76,6 +79,9 @@ while True:
 occupied = state == 1
 print(occupied.sum())
 
+end_1 = time()
+print(end_1 - start)
+
 # part 2
 
 closest = [[[] for i in range(len(l))] for l in data]
@@ -116,3 +122,6 @@ while True:
 
 occupied = state == 1
 print(occupied.sum())
+
+end_2 = time()
+print(end_2 - end_1)
