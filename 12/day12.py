@@ -36,9 +36,6 @@ def go(current_pos, current_dir, handle, value):
     elif handle == 'F':
         next_pos = (current_pos[0] + current_dir[0] * value, current_pos[1] + current_dir[1] * value)
         return next_pos, current_dir
-    
-    raise ValueError()
-
 
 position = (0, 0)
 direction = (0, 1)        
