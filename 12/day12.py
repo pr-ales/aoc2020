@@ -18,8 +18,7 @@ with open('input.txt', mode='r') as f:
 
 directions = [(0, 1), (-1, 0), (0, -1), (1, 0)]
 dir_names = ['E', 'S', 'W', 'N']
-rotations = [-1, 1]
-rot_names = ['L', 'R']
+rotations = {'L': -1, 'R': 1}
 
 # part 1
 
@@ -28,10 +27,10 @@ def go(current_pos, current_dir, handle, value):
         next_dir = directions[dir_names.index(handle)]
         next_pos = (current_pos[0] + next_dir[0] * value, current_pos[1] + next_dir[1] * value)
         return next_pos, current_dir
-    if handle in rot_names:
+    if handle in rotations:
         i = directions.index(current_dir)
         n = int(value / 90)
-        next_dir = directions[(i + rotations[rot_names.index(handle)] * n) % len(directions)]
+        next_dir = directions[(i + rotations[handle] * n) % len(directions)]
         return current_pos, next_dir
     elif handle == 'F':
         next_pos = (current_pos[0] + current_dir[0] * value, current_pos[1] + current_dir[1] * value)
@@ -42,7 +41,6 @@ direction = (0, 1)
 
 for inst in data:
     position, direction = go(position, direction, inst[0], inst[1])
-    print(inst, position, direction)
 
 print(abs(position[0]) + abs(position[1]))    
 
@@ -60,7 +58,7 @@ def go_w(waypoint_pos, current_pos, handle, value):
         next_dir = directions[dir_names.index(handle)]
         waypoint_pos = (waypoint_pos[0] + next_dir[0] * value, waypoint_pos[1] + next_dir[1] * value)
         return waypoint_pos, current_pos
-    if handle in rot_names:
+    if handle in rot_mat:
         d_x = waypoint_pos[1] - current_pos[1]
         d_y = waypoint_pos[0] - current_pos[0]
         rel_pos = (d_y, d_x)
@@ -83,7 +81,6 @@ waypoint = (1, 10)
 
 for inst in data:
     waypoint, position = go_w(waypoint, position, inst[0], inst[1])
-    print(inst, waypoint, position)
 
 print(abs(position[0]) + abs(position[1]))    
 
