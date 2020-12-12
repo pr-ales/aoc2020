@@ -59,21 +59,16 @@ def go_w(waypoint_pos, current_pos, handle, value):
         waypoint_pos = (waypoint_pos[0] + next_dir[0] * value, waypoint_pos[1] + next_dir[1] * value)
         return waypoint_pos, current_pos
     if handle in rot_mat:
-        d_x = waypoint_pos[1] - current_pos[1]
-        d_y = waypoint_pos[0] - current_pos[0]
-        rel_pos = (d_y, d_x)
         mat = rot_mat[handle]
         n = int(value / 90)
-        rotated = rotate(mat, rel_pos)
+        waypoint_pos = rotate(mat, waypoint_pos)
         for i in range(n - 1):
-            rotated = rotate(mat, rotated)
-        waypoint_pos = (current_pos[0] + rotated[0], current_pos[1] + rotated[1])
+            waypoint_pos = rotate(mat, waypoint_pos)
         return waypoint_pos, current_pos
     elif handle == 'F':
-        n_0 = waypoint_pos[0] - current_pos[0]
-        n_1 = waypoint_pos[1] - current_pos[1]
+        n_0 = waypoint_pos[0]
+        n_1 = waypoint_pos[1]
         next_pos = (current_pos[0] + value * n_0, current_pos[1] + value * n_1)
-        waypoint_pos = (waypoint_pos[0] + value * n_0, waypoint_pos[1] + value * n_1)
         return waypoint_pos, next_pos
 
 position = (0, 0)
