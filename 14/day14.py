@@ -7,6 +7,9 @@ Created on Mon Dec 14 08:55:11 2020
 """
 
 import re
+from time import time
+
+start_1 = time()
 
 data = {}
 
@@ -46,7 +49,12 @@ for mask in data:
 val_sum = sum(reg.values())
 print(val_sum)
 
+end_1 = time()
+print(end_1 - start_1)
+
 # part 2
+
+start_2 = time()
 
 reg = {}          
             
@@ -76,5 +84,8 @@ for mask in data:
             
         
 val_sum = sum(reg.values())
+end_2 = time()
 print(val_sum)
 
+print(end_2 - start_2)
+print(end_2 - start_1)
