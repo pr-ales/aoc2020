@@ -50,27 +50,38 @@ total_sum = 0
 total_prod = 0
 for r in remainders:
     bus_prod = 1
-    bus_str = []
     for r_1 in remainders:
         if r is not r_1:
             bus_prod *= r_1[0]
-            bus_str.append(str(r_1[0]))
  
     total_sum += bus_prod
     total_prod += bus_prod * r[1]
-#    print ('{0} a + {0} r_{1} === 0 (mod {2})'.format('*'.join(bus_str), r[0], all_prod))
-#    print ('{0} a + {0} r_{1} === 0 (mod {2})'.format(bus_prod, r[0], all_prod))
-#    print ('{0} a === {1} (mod {2})'.format(bus_prod, r[1] * bus_prod, all_prod))
+    print ('{0} x === {1} (mod {2})'.format(bus_prod, r[1] * bus_prod, all_prod))
 
-#print()
-#print ('{0} a === {1} (mod {2})'.format(total_sum, total_prod, all_prod))
-#print()
+total_prod = total_prod % all_prod
+
+print()
+print ('{0} x === {1} (mod {2})'.format(total_sum, total_prod, all_prod))
+print()
 
 p = total_sum
 q = total_prod
 m = all_prod
 
-k = 1
+# solving an equation p x === q (mod m)
+# or p * x + m * k = q, where a, k, q and m are positive integers
+#    a * x + b * y = c has a solution if c = n * gcd(a, b)
+# if a == p and b == m, gcd(p, m) = 1
+# thus q = n * m
+
+def gcd(a, b):
+    while b > 0:
+        s = b
+        b = a % b
+        a = s
+    return a
+
+k = 0
 a = 0
 
 # flip this to True to get a slow solution (many... hours?)
@@ -80,10 +91,13 @@ while False:
     if rhs % p == 0 :#and a >= 100000000000000:
         a = int(rhs / p)
         break
+    else:
+        print(k, int(rhs / p))
     
     k += 1
 
 end_1 = time()
+
 print(a)
 print(end_1 - start_1)
 
@@ -116,10 +130,9 @@ for i in range(len(remainders)):
     
     x += a_i * M_i * N_i
     
-while x < 0:
-    x += all_prod
-
+x = x % all_prod
 end_2 = time()
+
 print(x)
 
 print(end_2 - start_2)
