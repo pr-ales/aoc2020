@@ -15,13 +15,12 @@ data = [int(c) for c in text.split(',')]
 
 def play(data, turns):
     stats = dict(zip(list(data), [[i, i] for i in range(len(data))]))
-    game = [0 for _ in range(turns)]
-    for i in range(len(data)):
-        game[i] = data[i]
+    game = set(data[:-1])
     last = data[-1]
         
     for i in range(len(data), turns):
-        if last not in game[:-1]:
+        prev_last = last
+        if last not in game:
             last = 0
         else:
             last_i = stats[last][-2]
@@ -29,7 +28,7 @@ def play(data, turns):
             if last not in stats:
                 stats[last] = [i, i]
                         
-        game[i] = last
+        game.add(prev_last)
         stats[last][0] = stats[last][1]
         stats[last][1] = i
                 
@@ -42,5 +41,5 @@ print(last)
 
 turns = 30000000
 
-spoken = play(data, turns)
-print(spoken[-1])
+last = play(data, turns)
+print(last)
