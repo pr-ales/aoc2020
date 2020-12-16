@@ -42,10 +42,10 @@ def get_invalid(n_list):
     return invalid
 
 all_invalid = [get_invalid(t) for t in nearby]
-nums = sum(all_invalid, [])
+result = sum(sum(all_invalid, []))
 end_1 = time()
 
-print(sum(nums))
+print(result)
 print(end_1 - start_1)
 
 # part 2
