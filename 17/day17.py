@@ -18,7 +18,6 @@ val_map = {'#': 1, '.': 0}
 with open('input.txt', mode='r') as f:
     data = [[val_map[c] for c in list(l.strip())] for l in f.readlines()]
 
-
 # part 1
 
 z = 0
@@ -27,7 +26,6 @@ for y in range(len(data)):
     for x in range(len(data[y])):
         if data[y][x] == 1:
             cubes.append((z, y, x))
-
 
 def show(cubes):    
     cubes = np.array([[c[0], c[1], c[2]] for c in cubes])
@@ -48,8 +46,7 @@ def show(cubes):
             grid[sl[i,1] - y_min][sl[i,2] - x_min] = "#"
         for l in grid:
             print(''.join(l))
-
-          
+    
 def iterate(cubes, i_max, i = 0):
     # print('iteration {}'.format(i))
     # show(cubes)
@@ -86,6 +83,7 @@ def iterate(cubes, i_max, i = 0):
 
 n = iterate(cubes, 6)
 end_1 = time()
+
 print(n)
 print(end_1 - start_1)
 
@@ -137,6 +135,7 @@ def iterate_4d(cubes, i_max, i = 0):
 
 n = iterate_4d(cubes, 6)
 end_2 = time()
+
 print(n)
 print(end_2 - start_2)
 print(end_2 - start_1)
