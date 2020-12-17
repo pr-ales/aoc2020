@@ -20,13 +20,6 @@ with open('input.txt', mode='r') as f:
 
 # part 1
 
-z = 0
-cubes = []
-for y in range(len(data)):
-    for x in range(len(data[y])):
-        if data[y][x] == 1:
-            cubes.append((z, y, x))
-
 def show(cubes):    
     cubes = np.array([[c[0], c[1], c[2]] for c in cubes])
     z_min = min(cubes[:,0])
@@ -46,30 +39,27 @@ def show(cubes):
             grid[sl[i,1] - y_min][sl[i,2] - x_min] = "#"
         for l in grid:
             print(''.join(l))
-    
-def iterate(cubes, i_max, i = 0):
-    # print('iteration {}'.format(i))
-    # show(cubes)
-    
+
+def iterate_nd(cubes, i_max, i = 0):
     if i == i_max:
         return(len(cubes))
+        
+    n_dim = len(next(iter(cubes)))
+    d_dim = [-1, 0, 1]
+    deltas = [[0] * n_dim for _ in range(pow(3, n_dim))]
+    for d in range(n_dim):
+        for j in range(len(deltas)):
+            deltas[j][d] = d_dim[(j // pow(3, d)) % 3]
     
     neighbours = {c : -1 for c in cubes}
-    
     for c in cubes:
-        for d_z in range(-1, 2):
-            for d_y in range(-1, 2):
-                for d_x in range(-1, 2):
-                    z = c[0] + d_z
-                    y = c[1] + d_y
-                    x = c[2] + d_x
-                    
-                    n = (z, y, x)
-                    
-                    if n in neighbours.keys():
-                        neighbours[n] += 1
-                    else:
-                        neighbours[n] = 1
+        for d in deltas:
+            n = tuple([c[j] + d[j] for j in range(n_dim)])
+            
+            if n in neighbours.keys():
+                neighbours[n] += 1
+            else:
+                neighbours[n] = 1
                         
     new_cubes = set()
     for n in neighbours:
@@ -78,9 +68,16 @@ def iterate(cubes, i_max, i = 0):
         elif n not in cubes and neighbours[n] == 3:
             new_cubes.add(n)
     
-    return iterate(new_cubes, i_max, i + 1)
+    return iterate_nd(new_cubes, i_max, i + 1)
 
-n = iterate(cubes, 6)
+z = 0
+cubes = set()
+for y in range(len(data)):
+    for x in range(len(data[y])):
+        if data[y][x] == 1:
+            cubes.add((z, y, x))
+            
+n = iterate_nd(cubes, 6)
 end_1 = time()
 
 print(n)
@@ -92,46 +89,13 @@ start_2 = time()
 
 t = 0
 z = 0
-cubes = []
+cubes = set()
 for y in range(len(data)):
     for x in range(len(data[y])):
         if data[y][x] == 1:
-            cubes.append((t, z, y, x))
+            cubes.add((t, z, y, x))
 
-
-def iterate_4d(cubes, i_max, i = 0):
-    if i == i_max:
-        return(len(cubes))
-    
-    neighbours = {c : -1 for c in cubes}
-    
-    for c in cubes:
-        for d_t in range(-1, 2):
-            for d_z in range(-1, 2):
-                for d_y in range(-1, 2):
-                    for d_x in range(-1, 2):
-                        t = c[0] + d_t
-                        z = c[1] + d_z
-                        y = c[2] + d_y
-                        x = c[3] + d_x
-                
-                        n = (t, z, y, x)
-                        
-                        if n in neighbours.keys():
-                            neighbours[n] += 1
-                        else:
-                            neighbours[n] = 1
-                        
-    new_cubes = set()
-    for n in neighbours:
-        if n in cubes and (neighbours[n] == 2 or neighbours[n] == 3):
-            new_cubes.add(n)
-        elif n not in cubes and neighbours[n] == 3:
-            new_cubes.add(n)
-    
-    return iterate_4d(new_cubes, i_max, i + 1)
-
-n = iterate_4d(cubes, 6)
+n = iterate_nd(cubes, 6)
 end_2 = time()
 
 print(n)
