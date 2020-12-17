@@ -63,7 +63,6 @@ def iterate(cubes, i_max, i = 0):
                     z = c[0] + d_z
                     y = c[1] + d_y
                     x = c[2] + d_x
-            
                     
                     n = (z, y, x)
                     
@@ -101,7 +100,6 @@ for y in range(len(data)):
 
 
 def iterate_4d(cubes, i_max, i = 0):
-    
     if i == i_max:
         return(len(cubes))
     
