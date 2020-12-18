@@ -6,6 +6,10 @@ Created on Fri Dec 18 09:44:45 2020
 @author: podolnik
 """
 
+from time import time
+
+start_1 = time()
+
 data = []
 operators = ['*', '+']    
 
@@ -53,7 +57,6 @@ def evaluate(eq):
             elif op == '*':
                 stack *= val
                 op = None
-            
                     
         elif type(elem) is str:
             op = elem
@@ -62,9 +65,13 @@ def evaluate(eq):
 
 results = [evaluate(eq) for eq in data]
 total = sum(results)
+end_1 = time()
 print(total)
+print(end_1 - start_1)
 
 # part 2
+
+start_2 = time()
 
 def evaluate_2(eq):
     stack = []
@@ -91,4 +98,7 @@ def evaluate_2(eq):
 
 results = [evaluate_2(eq) for eq in data]
 total = sum(results)
+end_2 = time()
 print(total)
+print(end_2 - start_2)
+print(end_2 - start_1)
