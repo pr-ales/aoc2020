@@ -48,8 +48,9 @@ def evaluate(eq):
     op = None
     
     for elem in eq:
-        if type(elem) is int or type(elem) is list:
-            val = evaluate(elem) if type(elem) is list else elem
+        t = type(elem)
+        if t is int or t is list:
+            val = evaluate(elem) if t is list else elem
             
             if op == '+' or op is None:
                 stack += val
@@ -58,7 +59,7 @@ def evaluate(eq):
                 stack *= val
                 op = None
                     
-        elif type(elem) is str:
+        elif t is str:
             op = elem
     
     return stack
@@ -78,15 +79,16 @@ def evaluate_2(eq):
     op = None
     
     for elem in eq:
-        if type(elem) is int or type(elem) is list:
-            val = evaluate_2(elem) if type(elem) is list else elem
+        t = type(elem)
+        if t is int or t is list:
+            val = evaluate_2(elem) if t is list else elem
             
             if op == '*' or op is None:
                 stack.append([val])
             elif op == '+':
                 stack[-1].append(val)
                 
-        elif type(elem) is str:
+        elif t is str:
             op = elem
     
     sums = [sum(elems) for elems in stack]
