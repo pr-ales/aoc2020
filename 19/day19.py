@@ -55,9 +55,7 @@ def get_pattern(i_r):
     return '^' + get_rule(i_r) + '$'
 
 rule_0 = get_pattern(0)
-
 matches = [mes for mes in messages if re.match(rule_0, mes)]
-
 print(len(matches))
 
 # part 2
@@ -70,6 +68,3 @@ rules[11] = ([42, 31], [42, 11, 31])
 rule_0 = get_pattern(0)
 matches = [mes for mes in messages if re.match(rule_0, mes)]
 print(len(matches))
-
-
-rule_8 = get_pattern(8)
