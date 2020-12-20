@@ -80,4 +80,3 @@ for c in neighbors[2]:
     
 print(result)
 
-def 
