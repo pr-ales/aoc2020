@@ -21,24 +21,8 @@ with open('input.txt', mode='r') as f:
 
 # part 1
 
-all_allergens = set([])
-
-for ingredients, allergens in menu:    
-    all_allergens = all_allergens.union(allergens)
-
-all_allergens = sorted(list(all_allergens))
-
-all_candidates = {}
-
-for a in all_allergens:
-    candidates = []
-    for ingredients, allergens in menu:
-        set_i = set(ingredients)
-        set_a = set(allergens)
-        
-        if a in set_a:
-            candidates.append(set_i)
-    all_candidates[a] = sorted(list(set.intersection(*candidates)))
+all_allergens = sorted(set.union(*[set(allergens) for _, allergens in menu]))
+all_candidates = {a: sorted(set.intersection(*[set(i1) for i1, a1 in menu if a in a1])) for a in all_allergens}
 
 while True:
     certain = [all_candidates[a][0] for a in all_candidates if len(all_candidates[a]) == 1]
