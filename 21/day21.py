@@ -41,7 +41,7 @@ while True:
 allergen_assignment = {a: all_candidates[a][0] for a in all_candidates}
 allergen_ingredients = set(allergen_assignment.values())
 
-occurences = sum([sum([1 for i in il if i not in allergen_ingredients]) for il, a in menu])
+occurences = sum([sum([1 for i in il if i not in allergen_ingredients]) for il, _ in menu])
 print(occurences)
 
 # part 2
