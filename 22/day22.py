@@ -68,12 +68,12 @@ def play_recursive(deck_1, deck_2, history):
     n_games += 1
     this_game = n_games
     
-    n_rounds = 1
+    n_rounds = 0
     result = None
     
     while len(deck_1) > 0 and len(deck_2) > 0:
-#        print('game {}, round {}'.format(this_game, n_rounds))
         n_rounds += 1
+#        print('game {}, round {}'.format(this_game, n_rounds))
         
         if check_history(deck_1, deck_2, history):
             result = (1, this_game, n_rounds, deck_1)
