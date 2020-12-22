@@ -53,8 +53,7 @@ all_results = {}
 played_states = set()
 
 def get_key(deck_1, deck_2):
-#    return tuple(deck_1 + [0] + deck_2)
-    return '{} + {}'.format(','.join([str(c) for c in deck_1]), ','.join([str(c) for c in deck_2]))
+    return tuple(deck_1 + [0] + deck_2)
 
 def play_recursive(deck_1, deck_2, history):
     global all_results
