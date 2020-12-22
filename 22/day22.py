@@ -47,7 +47,7 @@ print(end_1 - start_1)
 start_2 = time()
 
 n_games = 0
-n_rounds = 0
+n_hits = 0
 
 all_results = {}
 played_states = set()
@@ -59,6 +59,7 @@ def play_recursive(deck_1, deck_2, history):
     global all_results
     global played_states
     global n_games
+    global n_hits
     
     def check_history(deck_1, deck_2, history):
         hist_key = get_key(deck_1, deck_2)
@@ -81,6 +82,7 @@ def play_recursive(deck_1, deck_2, history):
         
         if check_history(deck_1, deck_2, history):
             result = (1, this_game, n_rounds, deck_1)
+            n_hits += 1
             break
         else:
             card_1 = deck_1.pop(0)
@@ -90,7 +92,7 @@ def play_recursive(deck_1, deck_2, history):
                 rec_deck_1 = copy.deepcopy(deck_1[:card_1])
                 rec_deck_2 = copy.deepcopy(deck_2[:card_2])
                 
-                sub_result = play_recursive(rec_deck_1, rec_deck_2, history = set())
+                sub_result = play_recursive(rec_deck_1, rec_deck_2, set())
                 winner = sub_result[0]
                 
                 if winner == 1:
@@ -111,11 +113,14 @@ def play_recursive(deck_1, deck_2, history):
 deck_1 = copy.deepcopy(starting_deck_1)
 deck_2 = copy.deepcopy(starting_deck_2)
 
-result = play_recursive(deck_1, deck_2, set())
+history = set()
+result = play_recursive(deck_1, deck_2, history)
 deck = result[-1]
 n = len(deck)
 points = [(n - i) * deck[i] for i in range(n)]
 end_2 = time()
 
 print(sum(points))
-print(end_2 - start_2)          
+print(end_2 - start_2)       
+
+history = list(history)   
