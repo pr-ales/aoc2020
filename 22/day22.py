@@ -49,15 +49,10 @@ start_2 = time()
 n_games = 0
 n_hits = 0
 
-all_results = {}
-played_states = set()
-
 def get_key(deck_1, deck_2):
     return tuple(deck_1 + [0] + deck_2)
 
 def play_recursive(deck_1, deck_2, history):
-    global all_results
-    global played_states
     global n_games
     global n_hits
     
