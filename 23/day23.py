@@ -52,7 +52,6 @@ class Cup:
             prev_cup = next_cup
         
         if million:
-            prev_cup
             for i in range(len(arr) + 1, 1000001):
                 next_cup = Cup(i)
                 helper[next_cup.val] = next_cup
