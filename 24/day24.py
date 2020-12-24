@@ -86,4 +86,11 @@ for i in range(n_iter):
     tiles = new_tiles
     
 print(len(tiles))
-        
+
+import matplotlib.pyplot as plt
+
+x, y = zip(*tiles.keys())
+
+plt.plot(x, y, linewidth = 0, marker='.')
+
+plt.show()
