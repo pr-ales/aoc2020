@@ -16,8 +16,10 @@ int check3(long **ptrs_next, long *ptr, int val) {
 void shuffle(long count, long *input, long padding, long n_iter) {
     long size = count > padding ? count : padding;
     
-    long *cups = (long*)malloc(size * sizeof(long));
-    long **ptrs_next = (long**)malloc(size * sizeof(long*));
+    
+    long *cups = malloc(size * sizeof(long));
+    long **ptrs_next = malloc(size * sizeof(long*));
+    
     
     for (long i = 0; i < size; i++) {
         cups[i] = i < count ? input[i] : i + 1;
@@ -63,15 +65,16 @@ void shuffle(long count, long *input, long padding, long n_iter) {
         }
         printf("%ld\n", result);
     }
+    
     free(cups);
     free(ptrs_next);
 }
 
-int main(int argc, char *argv) {
+int main() {
     long input[] = {2, 5, 3, 1, 4, 9, 8, 6, 7};
     //long input[] = {3, 8, 9, 1, 2, 5, 4, 6, 7};
-    shuffle(9, input, 0, 10);
     
+    //shuffle(9, input, 0, 10);
     shuffle(9, input, 1000000, 10000000);
     
     return 0;
