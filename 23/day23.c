@@ -20,6 +20,8 @@ void shuffle(long count, long *input, long padding, long n_iter) {
     long *cups = malloc(size * sizeof(long));
     long **ptrs_next = malloc(size * sizeof(long*));
     
+    // remove this line and it seqfaults. why?
+    printf("ok\n");
     
     for (long i = 0; i < size; i++) {
         cups[i] = i < count ? input[i] : i + 1;
@@ -47,6 +49,15 @@ void shuffle(long count, long *input, long padding, long n_iter) {
         ptrs_next[next] = seam;
         
         current = *ptrs_next[current];
+        
+//         if (size < 10) {
+//             long *ptr = ptrs_next[1];
+//             for (long i = 0; i < size - 1; i++) {
+//                 printf("%ld", *ptr);
+//                 ptr = ptrs_next[*ptr];
+//             }
+//             printf("\n");
+//         }
     }
     
     long *ptr = ptrs_next[1];
@@ -74,7 +85,7 @@ int main() {
     long input[] = {2, 5, 3, 1, 4, 9, 8, 6, 7};
     //long input[] = {3, 8, 9, 1, 2, 5, 4, 6, 7};
     
-    //shuffle(9, input, 0, 10);
+    shuffle(9, input, 0, 100);
     shuffle(9, input, 1000000, 10000000);
     
     return 0;
