@@ -17,11 +17,13 @@ void shuffle(long count, long *input, long padding, long n_iter) {
     long size = count > padding ? count : padding;
     
     
-    long *cups = malloc(size * sizeof(long));
-    long **ptrs_next = malloc(size * sizeof(long*));
+    long *cups = calloc(size, sizeof(long));
+    long **ptrs_next = calloc(size, sizeof(long*));
     
-    // remove this line and it seqfaults. why?
-    printf("ok\n");
+    // now it does not segfault, but maybe it leaks... C is hard
+    for (long i = 0; i < size; i++) {
+        ptrs_next[i] = malloc(sizeof(long*));
+    }
     
     for (long i = 0; i < size; i++) {
         cups[i] = i < count ? input[i] : i + 1;
@@ -78,6 +80,7 @@ void shuffle(long count, long *input, long padding, long n_iter) {
     }
     
     free(cups);
+  
     free(ptrs_next);
 }
 
